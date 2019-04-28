@@ -20,5 +20,17 @@ namespace AddressBook.Controllers
         {
             return View();
         }
+
+        public ActionResult Delete(int id)
+        {
+            manager.DeleteContact(id);
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var targetContact = manager.GetSingleContact(id);
+            return View(targetContact);
+        }
     }
 }

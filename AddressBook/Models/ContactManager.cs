@@ -2,21 +2,49 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using AddressBook.Viewmodels;
 
 namespace AddressBook.Models
 {
     public class ContactManager
     {
-        public Contact GetSingleContact(int TargetId)
+        public Contact GetSingleContact(int targetId)
         {
             ApplicationDbContext db = new ApplicationDbContext();
             Contact target = new Contact();
 
             using (db)
             {
-                target = db.Contacts.Where(c => c.ContactId == TargetId).FirstOrDefault();
+                target = db.Contacts.Where(c => c.ContactId == targetId).FirstOrDefault();
             }
             return target;
+        }
+
+        public IEnumerable<Telephone> GetTelephones(int targetId)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            IEnumerable<Telephone> telephones = Enumerable.Empty<Telephone>();
+
+            using (db)
+            {
+                telephones = db.Telephones.Where(t => t.contact.ContactId == targetId).ToList();
+            }
+
+            return telephones;
+        }
+
+        public int DeleteTelephone(int targetId)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            int contactId;
+            using (db)
+            {
+                var telephone = db.Telephones.Where(t => t.TelephoneId == targetId).FirstOrDefault();
+                contactId = telephone.contact.ContactId;
+                var deleteQuery = db.Telephones.Remove(telephone);
+                db.SaveChanges();
+            }
+            return contactId;
         }
 
         public void CreateContact(Contact contact)
@@ -35,10 +63,22 @@ namespace AddressBook.Models
         {
             ApplicationDbContext db = new ApplicationDbContext();
             IEnumerable<Contact> contacts = Enumerable.Empty<Contact>();
+            IEnumerable<Telephone> telephones = Enumerable.Empty<Telephone>();
 
             using (db)
             {
                 contacts = db.Contacts.ToList();
+                telephones = db.Telephones.ToList();
+            }
+
+            foreach(var item in contacts)
+            {
+                var relatedNumbers = telephones.Where(t => t.contact.ContactId == item.ContactId).ToList();
+                foreach(var number in relatedNumbers)
+                {
+                    item.Phonebook.Append(number);
+                }
+
             }
 
             return contacts;

@@ -12,7 +12,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FirstName )
+            @Html.DisplayNameFor(model => model.FirstName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.LastName)
@@ -22,6 +22,9 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phonebook)
         </th>
         <th></th>
     </tr>
@@ -41,8 +44,15 @@
             @Html.DisplayFor(modelItem => item.Address)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ContactId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ContactId })
+            @foreach (var number in item.Phonebook)
+            {
+                @Html.DisplayFor(modelItem => number)
+            }
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ContactId }) |
+            @Html.ActionLink("Phonebook", "ViewPhones", new { id = item.ContactId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ContactId })
         </td>
     </tr>
 }

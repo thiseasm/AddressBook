@@ -32,5 +32,10 @@ namespace AddressBook.Controllers
             var targetContact = manager.GetSingleContact(id);
             return View(targetContact);
         }
+
+        public ActionResult ViewPhones(int id)
+        {
+            return RedirectToAction("Index", "Phone", id);
+        }
     }
 }

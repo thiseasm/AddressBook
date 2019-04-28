@@ -46,7 +46,6 @@ namespace AddressBook.Models
 
         public void DeleteContact(int TargetId)
         {
-            //Contact contact = GetSingleContact(TargetId);
             ApplicationDbContext db = new ApplicationDbContext();
 
             using (db)

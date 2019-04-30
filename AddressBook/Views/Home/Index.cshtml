@@ -23,9 +23,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Address)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Phonebook)
-        </th>
         <th></th>
     </tr>
 
@@ -42,13 +39,7 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @foreach (var number in item.Phonebook)
-            {
-                @Html.DisplayFor(modelItem => number)
-            }
-        </td>
+        </td>        
         <td>
             @Html.ActionLink("Edit", "Edit", new { id = item.ContactId }) |
             @Html.ActionLink("Phonebook", "ViewPhones", new { id = item.ContactId }) |

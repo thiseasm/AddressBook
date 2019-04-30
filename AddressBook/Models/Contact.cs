@@ -18,7 +18,7 @@ namespace AddressBook.Models
         public string Email { get; set; }
         public string Address { get; set; }
 
-        public ICollection<Telephone> Phonebook { get; set; }
+        public ICollection<Telephone> Telephones { get; set; }
     }
 
     public class ApplicationDbContext : DbContext

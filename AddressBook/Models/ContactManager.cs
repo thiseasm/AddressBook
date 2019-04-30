@@ -47,6 +47,17 @@ namespace AddressBook.Models
             return contactId;
         }
 
+        public void AppendPhones(Telephone telephone)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+
+            using (db)
+            {
+                var appendQuery = db.Telephones.Add(telephone);
+                db.SaveChanges();
+            }
+        }
+
         public void CreateContact(Contact contact)
         {
             ApplicationDbContext db = new ApplicationDbContext();
@@ -63,24 +74,11 @@ namespace AddressBook.Models
         {
             ApplicationDbContext db = new ApplicationDbContext();
             IEnumerable<Contact> contacts = Enumerable.Empty<Contact>();
-            IEnumerable<Telephone> telephones = Enumerable.Empty<Telephone>();
 
             using (db)
             {
-                contacts = db.Contacts.ToList();
-                telephones = db.Telephones.ToList();
+                contacts = db.Contacts.Include("Telephones.Contact").ToList();
             }
-
-            foreach(var item in contacts)
-            {
-                var relatedNumbers = telephones.Where(t => t.contact.ContactId == item.ContactId).ToList();
-                foreach(var number in relatedNumbers)
-                {
-                    item.Phonebook.Append(number);
-                }
-
-            }
-
             return contacts;
         }
 

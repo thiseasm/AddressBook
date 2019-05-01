@@ -13,7 +13,7 @@ namespace AddressBook.Controllers
         public ActionResult Index(int id)
         {
             var associatedNumbers = manager.GetTelephones(id);
-            ViewBag.Contact = manager.GetSingleContact(id);
+            Session["Contact"] = manager.GetSingleContact(id);
             return View(associatedNumbers);
         }
 
@@ -23,17 +23,17 @@ namespace AddressBook.Controllers
             return RedirectToAction("Index", new { ContactId = contactId });
         }
 
-        public ActionResult Create(Contact contact)
-        {
-            ViewBag.Contact = contact;
+        public ActionResult Create()
+        {            
             return View();
         }
 
         [HttpPost]
         public ActionResult AppendPhonebook(Telephone telephone)
         {
+            telephone.contact = Session["Contact"] as Contact;
             manager.AppendPhones(telephone);
-            return RedirectToAction("Index", new { @id = telephone.contact.ContactId });
+            return RedirectToAction("Index", new { id = telephone.contact.ContactId });
         }
     }
 }

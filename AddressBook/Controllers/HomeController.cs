@@ -35,7 +35,7 @@ namespace AddressBook.Controllers
 
         public ActionResult ViewPhones(int id)
         {
-            return RedirectToAction("Index","Phone", new { @id = id });
+            return RedirectToAction("Index","Phone", new { id = id });
         }
     }
 }

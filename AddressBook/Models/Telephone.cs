@@ -12,6 +12,7 @@ namespace AddressBook.Models
         [Required]
         public string Number { get; set; }
 
+        public int ContactId { get; set; }
         public Contact contact { get; set; }
     }
 }

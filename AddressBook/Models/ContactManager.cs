@@ -77,7 +77,7 @@ namespace AddressBook.Models
 
             using (db)
             {
-                contacts = db.Contacts.Include("Telephones.Contact").ToList();
+                contacts = db.Contacts.Include("Telephones.Contact").OrderBy(c => c.LastName).ThenBy(c => c.FirstName).ToList();
             }
             return contacts;
         }

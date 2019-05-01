@@ -12,8 +12,8 @@ namespace AddressBook.Controllers
         ContactManager manager = new ContactManager();
         public ActionResult Index(int id)
         {
-            var associatedNumbers = manager.GetTelephones(id);
-            Session["Contact"] = manager.GetSingleContact(id);
+            var associatedNumbers = manager.GetTelephones(id);            
+            Session["ContactID"] = id;
             return View(associatedNumbers);
         }
 
@@ -31,9 +31,9 @@ namespace AddressBook.Controllers
         [HttpPost]
         public ActionResult AppendPhonebook(Telephone telephone)
         {
-            telephone.contact = Session["Contact"] as Contact;
+            telephone.ContactId =(int)Session["ContactID"];
             manager.AppendPhones(telephone);
-            return RedirectToAction("Index", new { id = telephone.contact.ContactId });
+            return RedirectToAction("Index", new { id = telephone.ContactId });
         }
     }
 }

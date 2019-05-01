@@ -127,6 +127,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\PhoneController.cs" />
+    <Compile Include="Migrations\201905012031503_RelationshipRefining.cs" />
+    <Compile Include="Migrations\201905012031503_RelationshipRefining.Designer.cs">
+      <DependentUpon>201905012031503_RelationshipRefining.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\ContactViewModel.cs" />
     <Compile Include="Controllers\CreateController.cs" />
     <Compile Include="Controllers\EditController.cs" />
@@ -238,6 +242,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201904280756468_DbInit.resx">
       <DependentUpon>201904280756468_DbInit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905012031503_RelationshipRefining.resx">
+      <DependentUpon>201905012031503_RelationshipRefining.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

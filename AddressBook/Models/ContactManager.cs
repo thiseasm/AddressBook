@@ -27,7 +27,7 @@ namespace AddressBook.Models
 
             using (db)
             {
-                telephones = db.Telephones.Where(t => t.contact.ContactId == targetId).ToList();
+                telephones = db.Telephones.Where(t => t.ContactId == targetId).ToList();
             }
 
             return telephones;
@@ -40,7 +40,7 @@ namespace AddressBook.Models
             using (db)
             {
                 var telephone = db.Telephones.Where(t => t.TelephoneId == targetId).FirstOrDefault();
-                contactId = telephone.contact.ContactId;
+                contactId = telephone.ContactId;
                 var deleteQuery = db.Telephones.Remove(telephone);
                 db.SaveChanges();
             }

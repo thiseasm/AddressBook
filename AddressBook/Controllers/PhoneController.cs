@@ -20,7 +20,7 @@ namespace AddressBook.Controllers
         public ActionResult Delete(int telephoneId)
         {
             int contactId = manager.DeleteTelephone(telephoneId);
-            return RedirectToAction("Index", new { ContactId = contactId });
+            return RedirectToAction("Index", new { id = contactId });
         }
 
         public ActionResult Create()

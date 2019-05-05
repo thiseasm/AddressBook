@@ -82,6 +82,19 @@ namespace AddressBook.Models
             return contacts;
         }
 
+        public IEnumerable<Contact> GetContacts(string searchString)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            IEnumerable<Contact> contacts = Enumerable.Empty<Contact>();
+
+            using (db)
+            {
+                contacts = db.Contacts.Include("Telephones.Contact").Where(c => c.LastName.Contains(searchString)
+                               || c.FirstName.Contains(searchString)).OrderBy(c => c.LastName).ThenBy(c => c.FirstName).ToList();
+            }
+            return contacts;
+        }
+
         public void DeleteContact(int TargetId)
         {
             ApplicationDbContext db = new ApplicationDbContext();

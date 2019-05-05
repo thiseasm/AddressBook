@@ -10,9 +10,13 @@ namespace AddressBook.Controllers
     public class HomeController : Controller
     {
         ContactManager manager = new ContactManager();
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
             var allContacts = manager.GetContacts();
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                allContacts = manager.GetContacts(searchString);
+            }
             return View(allContacts);
         }
 

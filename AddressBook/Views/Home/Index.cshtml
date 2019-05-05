@@ -62,7 +62,7 @@
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.ContactId }) |
                 @Html.ActionLink("Phonebook", "ViewPhones", new { id = item.ContactId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ContactId })
+                @Html.ActionLink("Delete", "Delete", new { id = item.ContactId }, new { onclick=$"return confirm('CAUTION: {item.LastName} {item.FirstName} will be deleted permanently.');"})
             </td>
         </tr>
     }
